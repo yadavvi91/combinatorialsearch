@@ -12,6 +12,7 @@ import java.io.IOException;
 public class Sudoku {
 
     private int[] a;
+    private boolean found;
 
     public Sudoku(int[] a) {
         this.a = a;
@@ -35,8 +36,10 @@ public class Sudoku {
     }
 
     private void enumerate(int k) {
+        if (found) return;
         // process(k);
         if (k == 81) {
+            found = true;
             process(k);
             return;
         }
