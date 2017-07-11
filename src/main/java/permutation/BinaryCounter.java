@@ -2,6 +2,10 @@ package permutation;
 
 /**
  * Enumerate N-bit strings (Generate all possible N-bit binary numbers).
+ *
+ * <p>
+ * NOTE: This is from Bob Sedgewick's http://algs4.cs.princeton.edu/home/ course.
+ * and is copyrighted to him and Kevin Wayne under GPLv3.
  */
 public class BinaryCounter {
 

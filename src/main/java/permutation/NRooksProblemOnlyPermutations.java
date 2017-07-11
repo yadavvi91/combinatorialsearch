@@ -5,6 +5,10 @@ package permutation;
  * no rook can attack any other?
  * <p>
  * <i>We are only going to enumerate all the possible positions of the rooks.</i>
+ *
+ * <p>
+ * NOTE: This is from Bob Sedgewick's http://algs4.cs.princeton.edu/home/ course.
+ * and is copyrighted to him and Kevin Wayne under GPLv3.
  */
 public class NRooksProblemOnlyPermutations {
 
