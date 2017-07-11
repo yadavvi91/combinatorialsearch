@@ -1,28 +1,30 @@
-package backtracking;
+package org.yadavvi.permutation;
 
 /**
- * How many ways are there to place N queens on an N-by-N board so that
- * no queen can attack any other?
+ * How many ways are there to place N rooks on an N-by-N board so that
+ * no rook can attack any other?
+ * <p>
+ * <i>We are only going to enumerate all the possible positions of the rooks.</i>
  *
  * <p>
  * NOTE: This is from Bob Sedgewick's http://algs4.cs.princeton.edu/home/ course.
  * and is copyrighted to him and Kevin Wayne under GPLv3.
  */
-public class NQueens {
+public class NRooksProblemOnlyPermutations {
 
     private int N;
     /**
-     * a[i] = j will represent a Queen in i-th row and j-th column.
+     * a[i] = j will represent a Rook in i-th row and j-th column.
      * And the values of i and j would be between 0 to N-1
      */
     private int[] a;
 
-    public NQueens(int N) {
+    public NRooksProblemOnlyPermutations(int N) {
         this.N = N;
         a = new int[N];
         for (int i = 0; i < N; i++) {
-            a[i] = i; // Initialize such that a queen is in k-th row and k-th column.
-                      // for e.g. a[5] = 5 means a queen is in row 5 and column 5.
+            a[i] = i; // Initialize such that a rook is in k-th row and k-th column.
+                      // for e.g. a[5] = 5 means a rook is in row 5 and column 5.
         }
 
         enumerate(0);
@@ -49,21 +51,13 @@ public class NQueens {
 
         for (int i = k; i < N; i++) {
             exch(k, i);
-            if (!canBacktrack(k)) enumerate(k + 1);
+            enumerate(k + 1);
             exch(i, k);
         }
     }
 
-    private boolean canBacktrack(int k) {
-        for (int i = 0; i < k; i++) {
-            if ((a[i] - a[k]) == (k - i)) return true;
-            if ((a[k] - a[i]) == (k - i)) return true;
-        }
-        return false;
-    }
-
     public static void main(String[] args) {
-        NQueens rooks = new NQueens(4);
+        NRooksProblemOnlyPermutations rooks = new NRooksProblemOnlyPermutations(4);
     }
 
 }

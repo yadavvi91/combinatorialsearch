@@ -1,4 +1,4 @@
-package permutation;
+package org.yadavvi.permutation;
 
 /**
  * Enumerate N-bit strings (Generate all possible N-bit binary numbers).

@@ -1,4 +1,4 @@
-package couting;
+package org.yadavvi.couting;
 
 /**
  * Enumerate all N-digit base-R numbers.
