@@ -20,7 +20,8 @@ public class Sudoku {
         }
     }
 
-    private void process() {
+    private void process(int k) {
+        System.out.println("k: " + k);
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < a.length; i++) {
             if (i > 0 && i % 9 != 0) {
@@ -34,8 +35,9 @@ public class Sudoku {
     }
 
     private void enumerate(int k) {
+        // process(k);
         if (k == 81) {
-            process();
+            process(k);
             return;
         }
 
@@ -43,7 +45,7 @@ public class Sudoku {
             enumerate(k + 1); return;
         }
 
-        for (int r = k; r <= 9; r++) {
+        for (int r = 1; r <= 9; r++) {
             a[k] = r;
             if (!canBacktrack(k)) enumerate(k + 1);
         }
@@ -54,24 +56,30 @@ public class Sudoku {
     private boolean canBacktrack(int k) {
         // Row
         int row = k / 9;
-        int start_of_row = k * row;
-        for (int i = start_of_row; i < k; i++) {
-            if (a[i] == a[k]) return true;
+        for (int i = row * 9; i < row * 9 + 9; i++) {
+            if (i != k) {
+                if (a[i] == a[k]) return true;
+            }
         }
         // Column
-        int row_of_column = k < 9 ? k : k / 9;
-        int start_of_column = row_of_column % 9;
-        for (int i = start_of_column; i < k; i += 9) {
-            if (a[i] == a[k]) return true;
+        int column = k % 9;
+        for (int i = column; i < 81; i += 9) {
+            if (i != k) {
+                if (a[i] == a[k]) return true;
+            }
         }
 
         // Box
         // First find the starting point of box with 'k' in it.
         int box_row = findBoxRow(k);
         int box_column = findBoxColumn(k);
-        int start = 9 * 3 * box_row + 9 * box_column;
-        for (int i = start; i < k; i++) {
-            if (a[i] == a[k]) return true;
+        for (int i = box_row; i < box_row + 3; i++) {
+            for (int j = box_column; j < box_column + 3; j++) {
+                int l = i * 9 + j;
+                if (l != k) {
+                    if (a[l] == a[k]) return true;
+                }
+            }
         }
         return false;
     }
@@ -79,13 +87,13 @@ public class Sudoku {
     private int findBoxRow(int k) {
         int val = k / 9;
         int val2 = val / 3;
-        return val2;
+        return val2 * 3;
     }
 
     private int findBoxColumn(int k) {
-        int val = k < 9 ? k : k / 9;
-        int val2 = val % 3;
-        return val2;
+        int val = k % 9;
+        int val2 = val / 3;
+        return val2 * 3;
     }
 
 
@@ -97,7 +105,7 @@ public class Sudoku {
         File file = new File(Sudoku.class.getResource("board.txt").getFile());
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             while ((line = reader.readLine()) != null) {
-                // System.out.println(line);
+                System.out.println(line);
                 String[] b = line.split(" ");
                 for (String val : b) {
                     a[i++] = Integer.valueOf(val);
