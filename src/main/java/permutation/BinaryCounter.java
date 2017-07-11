@@ -11,6 +11,9 @@ public class BinaryCounter {
     public BinaryCounter(int N) {
         this.N = N;
         this.a = new int[N];
+        for (int i = 0; i < N; i++) {
+            a[i] = 0; // Initialize the i-th bit to 0. This isn't necessary as an int[] is always initialized to 0.
+        }
         enumerate(0);
     }
 
@@ -27,10 +30,10 @@ public class BinaryCounter {
             return;
         }
 
-        a[k] = 0;
         enumerate(k + 1);
-        a[k] = 1;
+        a[k] = 1; // Change k-th position to 1
         enumerate(k + 1);
+        a[k] = 0; // Change k-th position back to 0 i.e. cleanup.
     }
 
     public static void main(String[] args) {
