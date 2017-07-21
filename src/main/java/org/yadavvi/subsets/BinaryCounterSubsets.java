@@ -1,0 +1,59 @@
+package org.yadavvi.subsets;
+
+
+/**
+ * Enumerate N-bit strings (Generate all possible N-bit binary numbers).
+ *
+ * <p>
+ * NOTE: This is from Bob Sedgewick's http://algs4.cs.princeton.edu/home/ course.
+ * and is copyrighted to him and Kevin Wayne under GPLv3.
+ */
+public class BinaryCounterSubsets {
+
+    private int N;
+    private int[] a;
+
+    public BinaryCounterSubsets(int N) {
+        this.N = N;
+        this.a = new int[N];
+        for (int i = 0; i < N; i++) {
+            a[i] = 0; // Initialize the i-th bit to 0. This isn't necessary as an int[] is always initialized to 0.
+        }
+        enumerate(0);
+    }
+
+    private void process() {
+        /*for (int val : a) {
+            System.out.printf("%d", val);
+        }
+        System.out.println();*/
+
+        for (int i = 0; i < a.length; i++) {
+            System.out.printf("%d", a[i]);
+        }
+        System.out.printf("  ");
+        for (int i = 0; i < a.length; i++) {
+            if (a[a.length - 1 - i] == 1) {
+                System.out.printf("%d", i);
+            }
+        }
+        System.out.println();
+    }
+
+    private void enumerate(int k) {
+        if (k == N) {
+            process();
+            return;
+        }
+
+        enumerate(k + 1);
+        a[k] = 1; // Change k-th position to 1
+        enumerate(k + 1);
+        a[k] = 0; // Change k-th position back to 0 i.e. cleanup.
+    }
+
+    public static void main(String[] args) {
+        BinaryCounterSubsets counter = new BinaryCounterSubsets(4);
+    }
+
+}
